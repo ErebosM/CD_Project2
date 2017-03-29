@@ -1,0 +1,228 @@
+package cd.frontend.parser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cd.ToDoException;
+import cd.frontend.parser.JavaliParser.*;
+import cd.frontend.parser.JavaliParser.ADDContext;
+import cd.frontend.parser.JavaliParser.ANDContext;
+import cd.frontend.parser.JavaliParser.ActualParamListContext;
+import cd.frontend.parser.JavaliParser.ArrayTypeContext;
+import cd.frontend.parser.JavaliParser.AssignmentStmtContext;
+import cd.frontend.parser.JavaliParser.BRACKETSContext;
+import cd.frontend.parser.JavaliParser.CASTContext;
+import cd.frontend.parser.JavaliParser.COMPContext;
+import cd.frontend.parser.JavaliParser.ClassDeclContext;
+import cd.frontend.parser.JavaliParser.EQUContext;
+import cd.frontend.parser.JavaliParser.FormalParamListContext;
+import cd.frontend.parser.JavaliParser.IDENTACCContext;
+import cd.frontend.parser.JavaliParser.IdentAccessContext;
+import cd.frontend.parser.JavaliParser.IfStmtContext;
+import cd.frontend.parser.JavaliParser.LITContext;
+import cd.frontend.parser.JavaliParser.MULContext;
+import cd.frontend.parser.JavaliParser.MemberlistContext;
+import cd.frontend.parser.JavaliParser.MethodCallExprContext;
+import cd.frontend.parser.JavaliParser.MethodCallStmtContext;
+import cd.frontend.parser.JavaliParser.MethodDeclContext;
+import cd.frontend.parser.JavaliParser.NewExprContext;
+import cd.frontend.parser.JavaliParser.ORContext;
+import cd.frontend.parser.JavaliParser.PrimitiveTypeContext;
+import cd.frontend.parser.JavaliParser.ReadExprContext;
+import cd.frontend.parser.JavaliParser.ReferenceTypeContext;
+import cd.frontend.parser.JavaliParser.ReturnStmtContext;
+import cd.frontend.parser.JavaliParser.StmtBlockContext;
+import cd.frontend.parser.JavaliParser.StmtContext;
+import cd.frontend.parser.JavaliParser.TypeContext;
+import cd.frontend.parser.JavaliParser.UNARYContext;
+import cd.frontend.parser.JavaliParser.UnitContext;
+import cd.frontend.parser.JavaliParser.VarDeclContext;
+import cd.frontend.parser.JavaliParser.WhileStmtContext;
+import cd.frontend.parser.JavaliParser.WriteStmtContext;
+import cd.ir.Ast.*;
+import cd.ir.Ast;
+import cd.ir.Ast.ClassDecl;
+import cd.ir.Ast.Seq;
+import cd.util.Pair;
+
+public final class JavaliAstVisitor extends JavaliBaseVisitor<Void> {
+	
+	public List<ClassDecl> classDecls = new ArrayList<>();
+	@Override
+	public Void visitClassDecl(ClassDeclContext ctx) {
+		visitMemberlist(ctx.memberlist());
+		String name = ctx.children.get(1).getText();
+		String superClass = "";
+		List<? extends Ast> members = null;
+		ClassDecl classdecl = new ClassDecl(name, superClass, members);
+		classDecls.add(classdecl);
+		return null;
+	}
+	@Override
+	public Void visitNewExpr(NewExprContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitNewExpr(ctx);
+	}
+	@Override
+	public Void visitBRACKETS(BRACKETSContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitBRACKETS(ctx);
+	}
+	@Override
+	public Void visitADD(ADDContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitADD(ctx);
+	}
+	@Override
+	public Void visitFormalParamList(FormalParamListContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitFormalParamList(ctx);
+	}
+	@Override
+	public Void visitReferenceType(ReferenceTypeContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitReferenceType(ctx);
+	}
+	@Override
+	public Void visitMethodDecl(MethodDeclContext ctx) {
+		String returnType = "";
+		String name = "";
+		List<Pair<String>> formalParams = null;
+		Seq decls = null;
+		Seq body = null;
+		MethodDecl methoddecl = new MethodDecl(returnType, name, formalParams, decls, body);
+		return visitStmt(ctx.stmt(0));
+	}
+	@Override
+	public Void visitType(TypeContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitType(ctx);
+	}
+	@Override
+	public Void visitCOMP(COMPContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitCOMP(ctx);
+	}
+	@Override
+	public Void visitMethodCallExpr(MethodCallExprContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitMethodCallExpr(ctx);
+	}
+	@Override
+	public Void visitPrimitiveType(PrimitiveTypeContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPrimitiveType(ctx);
+	}
+	@Override
+	public Void visitAssignmentStmt(AssignmentStmtContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitAssignmentStmt(ctx);
+	}
+	@Override
+	public Void visitActualParamList(ActualParamListContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitActualParamList(ctx);
+	}
+	@Override
+	public Void visitUNARY(UNARYContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitUNARY(ctx);
+	}
+	@Override
+	public Void visitIDENTACC(IDENTACCContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitIDENTACC(ctx);
+	}
+	@Override
+	public Void visitCAST(CASTContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitCAST(ctx);
+	}
+	@Override
+	public Void visitArrayType(ArrayTypeContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitArrayType(ctx);
+	}
+	@Override
+	public Void visitMemberlist(MemberlistContext ctx) {
+		return visitMethodDecl(ctx.methodDecl(0));
+	}
+	@Override
+	public Void visitWhileStmt(WhileStmtContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitWhileStmt(ctx);
+	}
+	@Override
+	public Void visitOR(ORContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitOR(ctx);
+	}
+	@Override
+	public Void visitMUL(MULContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitMUL(ctx);
+	}
+	@Override
+	public Void visitReadExpr(ReadExprContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitReadExpr(ctx);
+	}
+	@Override
+	public Void visitEQU(EQUContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitEQU(ctx);
+	}
+	@Override
+	public Void visitIdentAccess(IdentAccessContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitIdentAccess(ctx);
+	}
+	@Override
+	public Void visitReturnStmt(ReturnStmtContext ctx) {
+		return null;
+	}
+	@Override
+	public Void visitWriteStmt(WriteStmtContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitWriteStmt(ctx);
+	}
+	@Override
+	public Void visitMethodCallStmt(MethodCallStmtContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitMethodCallStmt(ctx);
+	}
+	@Override
+	public Void visitStmtBlock(StmtBlockContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitStmtBlock(ctx);
+	}
+	@Override
+	public Void visitUnit(UnitContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitUnit(ctx);
+	}
+	@Override
+	public Void visitIfStmt(IfStmtContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitIfStmt(ctx);
+	}
+	@Override
+	public Void visitLIT(LITContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitLIT(ctx);
+	}
+	@Override
+	public Void visitAND(ANDContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitAND(ctx);
+	}
+	@Override
+	public Void visitVarDecl(VarDeclContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitVarDecl(ctx);
+	}
+	@Override
+	public Void visitStmt(StmtContext ctx) {
+		return visitReturnStmt(ctx.returnStmt());
+	}
+}

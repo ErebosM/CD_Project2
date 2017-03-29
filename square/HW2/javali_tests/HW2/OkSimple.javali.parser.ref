@@ -1,0 +1,8 @@
+ClassDecl (name: Main, superClass: Object)
+| MethodDecl (argumentNames: [], argumentTypes: [], name: main, returnType: void)
+| | Seq ()
+| | Seq ()
+| | | ReturnStmt ()
+| | | | BinaryOp (operator: B_PLUS)
+| | | | | IntConst (value: 3)
+| | | | | IntConst (value: 3)

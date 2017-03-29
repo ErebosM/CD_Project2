@@ -1,0 +1,31 @@
+Debug information for file: javali_tests/HW1/HelloWorld.javali
+AST Resulting From Parsing Stage:
+ClassDecl (name: Main, superClass: Object)
+| MethodDecl (argumentNames: [], argumentTypes: [], name: main, returnType: void)
+| | Seq ()
+| | Seq ()
+| | | IntConst (value: 53110)
+
+Phase parser failed because we expected to see:
+ClassDecl (name: Main, superClass: Object)
+| MethodDecl (argumentNames: [], argumentTypes: [], name: main, returnType: void)
+| | Seq ()
+| | Seq ()
+| | | BuiltInWrite ()
+| | | | IntConst (value: 53110)
+| | | BuiltInWriteln ()
+
+But we actually saw:
+ClassDecl (name: Main, superClass: Object)
+| MethodDecl (argumentNames: [], argumentTypes: [], name: main, returnType: void)
+| | Seq ()
+| | Seq ()
+| | | IntConst (value: 53110)
+
+The difference is:
+At line   5 /   5:
+< | | | BuiltInWrite ()
+< | | | | IntConst (value: 53110)
+< | | | BuiltInWriteln ()
+> | | | IntConst (value: 53110)
+

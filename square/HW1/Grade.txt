@@ -1,0 +1,21 @@
+Grade: 13/25
+
+
+
+Comments:
+
+1) There is no implementation to calculate the minimum number of required registers. The way you decide whether to traverse the right or the left child first is incorrect, since the decision does not rely on the minimum number of required registers but on the number of children.
+
+	[-8pts]
+
+
+2) Division is incorrect. Although the idea is correct, you don't make sure that you don't overwrite registers.
+This may happen before the division if reg2 is %eax, in which case, it will be overwritten with reg1.
+Moreover, after the division, if reg2 is %eax or %edx, the result will be overwritten due to the pop.
+
+	[-2pts]
+
+
+3) You committed only two tests. You should provide more for the next HW.
+
+	[-2pts]

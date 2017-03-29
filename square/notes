@@ -1,0 +1,4 @@
+fix left recursion in grammar
+
+- big numbers
+- write tests
