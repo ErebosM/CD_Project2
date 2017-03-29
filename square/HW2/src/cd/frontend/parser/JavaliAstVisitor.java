@@ -55,7 +55,7 @@ public final class JavaliAstVisitor extends JavaliBaseVisitor<Void> {
 	public List<ClassDecl> classDecls = new ArrayList<>();
 	@Override
 	public Void visitClassDecl(ClassDeclContext ctx) {
-		visitMemberlist(ctx.memberlist());
+		ctx.getChild(3).accept(this);
 		String name = ctx.children.get(1).getText();
 		String superClass = "Object";
 		ClassDecl classdecl = new ClassDecl(name, superClass, list);
@@ -69,8 +69,8 @@ public final class JavaliAstVisitor extends JavaliBaseVisitor<Void> {
 	}
 	@Override
 	public Void visitBRACKETS(BRACKETSContext ctx) {
-		// TODO Auto-generated method stub
-		return super.visitBRACKETS(ctx);
+		ctx.getChild(1).accept(this);
+		return null;
 	}
 	@Override
 	public Void visitADD(ADDContext ctx) {
@@ -79,9 +79,14 @@ public final class JavaliAstVisitor extends JavaliBaseVisitor<Void> {
 		
 		Expr left = (Expr) list.get(0);
 		Expr right = (Expr) list.get(0);
-		String string = "+";
+		BOp op = null;
+		if (ctx.getChild(1).getText().equals("+")) {
+			op = BOp.B_PLUS;
+		} else if (ctx.getChild(1).getText().equals("-")) {
+			op = BOp.B_MINUS;
+		}
 		
-		BinaryOp binaryop = new BinaryOp(left, BOp.B_PLUS, right);
+		BinaryOp binaryop = new BinaryOp(left, op, right);
 		
 		list.remove(0);
 		list.remove(0);
@@ -200,8 +205,25 @@ public final class JavaliAstVisitor extends JavaliBaseVisitor<Void> {
 	}
 	@Override
 	public Void visitMUL(MULContext ctx) {
-		// TODO Auto-generated method stub
-		return super.visitMUL(ctx);
+		ctx.getChild(0).accept(this);
+		ctx.getChild(2).accept(this);
+		
+		Expr left = (Expr) list.get(0);
+		Expr right = (Expr) list.get(0);
+		BOp op = null;
+		if (ctx.getChild(1).getText().equals("*")) {
+			op = BOp.B_TIMES;
+		} else if (ctx.getChild(1).getText().equals("/")) {
+			op = BOp.B_DIV;
+		}
+		
+		BinaryOp binaryop = new BinaryOp(left, op, right);
+		
+		list.remove(0);
+		list.remove(0);
+		list.add(binaryop);
+		
+		return null;
 	}
 	@Override
 	public Void visitReadExpr(ReadExprContext ctx) {

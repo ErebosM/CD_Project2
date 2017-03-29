@@ -4,13 +4,15 @@ Test failed because an exception was thrown:
     null
 Stack trace:
 java.lang.NullPointerException
-	at cd.frontend.parser.JavaliAstVisitor.visitMemberlist(JavaliAstVisitor.java:168)
-	at cd.frontend.parser.JavaliAstVisitor.visitClassDecl(JavaliAstVisitor.java:57)
+	at cd.frontend.parser.JavaliAstVisitor.visitMemberlist(JavaliAstVisitor.java:193)
+	at cd.frontend.parser.JavaliAstVisitor.visitMemberlist(JavaliAstVisitor.java:1)
+	at cd.frontend.parser.JavaliParser$MemberlistContext.accept(JavaliParser.java:403)
+	at cd.frontend.parser.JavaliAstVisitor.visitClassDecl(JavaliAstVisitor.java:58)
 	at cd.frontend.parser.JavaliAstVisitor.visitClassDecl(JavaliAstVisitor.java:1)
 	at cd.frontend.parser.JavaliParser$ClassDeclContext.accept(JavaliParser.java:345)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:72)
 	at cd.frontend.parser.JavaliBaseVisitor.visitUnit(JavaliBaseVisitor.java:248)
-	at cd.frontend.parser.JavaliAstVisitor.visitUnit(JavaliAstVisitor.java:232)
+	at cd.frontend.parser.JavaliAstVisitor.visitUnit(JavaliAstVisitor.java:274)
 	at cd.frontend.parser.JavaliAstVisitor.visitUnit(JavaliAstVisitor.java:1)
 	at cd.frontend.parser.JavaliParser$UnitContext.accept(JavaliParser.java:292)
 	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:44)

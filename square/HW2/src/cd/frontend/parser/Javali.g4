@@ -121,7 +121,8 @@ identAccess
 	| 'this'
 	| identAccess '.' Identifier
 	| identAccess '[' expr ']'
-//	| methodCallExpr
+	| Identifier '(' (actualParamList)? ')'
+	| identAccess '.' Identifier '(' (actualParamList)? ')'
 	;
 	
 expr
